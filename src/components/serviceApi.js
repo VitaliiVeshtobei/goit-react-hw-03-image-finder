@@ -1,14 +1,14 @@
 import axios from 'axios';
 
-export const getApi = async () => {
+export const getApi = async (nextStatePage, nextName) => {
   const BASE_URL = 'https://pixabay.com/api/';
   const params = {
     key: '29558697-85a489dc53885da2ee650bf34',
-    q: `dog`,
+    q: `${nextName}`,
     image_type: 'photo',
     orientation: 'horizontal',
     safesearch: 'true',
-    page: `${1}`,
+    page: `${nextStatePage}`,
     per_page: '12',
   };
 

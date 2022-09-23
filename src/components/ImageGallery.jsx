@@ -1,39 +1,62 @@
 import React from 'react';
 import { Component } from 'react';
+import { toast } from 'react-toastify';
 import { ImageGalleryItem } from './ImageGalleryItem';
-import axios from 'axios';
+import { LoadMore } from './LoadMore';
+import { getApi } from './serviceApi';
 
 export class ImageGallery extends Component {
   state = {
     dataGallery: null,
+    page: 1,
+    visibleLoadMore: false,
   };
-  componentDidUpdate(prevProps, prevState) {
+  async componentDidUpdate(prevProps, prevState) {
+    const prevStatePage = prevState.page;
+    const nextStatePage = this.state.page;
     const prevName = prevProps.pictureName;
     const nextName = this.props.pictureName;
     if (prevName !== nextName) {
-      const BASE_URL = 'https://pixabay.com/api/';
-      const params = {
-        key: '29558697-85a489dc53885da2ee650bf34',
-        q: `${nextName}`,
-        image_type: 'photo',
-        orientation: 'horizontal',
-        safesearch: 'true',
-        page: `${1}`,
-        per_page: '12',
-      };
+      this.setState({ page: 1, dataGallery: [], visibleLoadMore: false });
+    }
 
-      axios(BASE_URL, { params }).then(res => {
-        this.setState({ dataGallery: res.data.hits });
-      });
+    if (prevName !== nextName || prevStatePage !== nextStatePage) {
+      try {
+        const response = await getApi(nextStatePage, nextName);
+        if (response.hits.length === 0) {
+          toast.error('No such pictures!');
+          this.setState({ visibleLoadMore: false });
+        }
+
+        if (response.hits.length > 11) this.setState({ visibleLoadMore: true });
+        if (!this.state.dataGallery) {
+          return this.setState({ dataGallery: response.hits });
+        }
+        this.setState(prevState => {
+          return { dataGallery: [...prevState.dataGallery, ...response.hits] };
+        });
+      } catch (error) {
+        console.log(error.message);
+      }
     }
   }
+  loadMoreClick = () => {
+    this.setState(prevState => ({
+      page: prevState.page + 1,
+    }));
+  };
   render() {
     return (
-      <ul className="ImageGallery">
-        {this.state.dataGallery && (
-          <ImageGalleryItem data={this.state.dataGallery} />
+      <>
+        <ul className="ImageGallery">
+          {this.state.dataGallery && (
+            <ImageGalleryItem data={this.state.dataGallery} />
+          )}
+        </ul>
+        {this.state.visibleLoadMore && (
+          <LoadMore onClickLoadMore={this.loadMoreClick} />
         )}
-      </ul>
+      </>
     );
   }
 }
