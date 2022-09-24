@@ -15,15 +15,10 @@ export class App extends Component {
 
   render() {
     return (
-      <div>
-        <ToastContainer
-        //
-        />
+      <div className="App">
+        <ToastContainer />
         <SearchBar onSubmit={this.handlePictureName} />
         <ImageGallery pictureName={this.state.pictureName} />
-        {/* <Loader />
-        <Button />
-        <Modal />   */}
       </div>
     );
   }
