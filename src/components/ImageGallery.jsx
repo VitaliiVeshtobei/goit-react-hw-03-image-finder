@@ -56,9 +56,10 @@ export class ImageGallery extends Component {
       <>
         <Loader visible={this.state.visibleLoader} />
         <ul className="ImageGallery">
-          {this.state.dataGallery && (
-            <ImageGalleryItem data={this.state.dataGallery} />
-          )}
+          {this.state.dataGallery &&
+            this.state.dataGallery.map(picture => {
+              return <ImageGalleryItem data={picture} key={picture.id} />;
+            })}
         </ul>
         {this.state.visibleLoadMore && (
           <LoadMore onClickLoadMore={this.loadMoreClick} />

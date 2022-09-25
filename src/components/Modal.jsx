@@ -14,7 +14,7 @@ import ReactDOM from 'react-dom';
 
 export const Modal = ({ largeImage, altTags, closeModal }) => {
   return ReactDOM.createPortal(
-    <div className="Overlay" onClick={closeModal}>
+    <div className="Overlay" onClick={closeModal} onKeyDown={closeModal}>
       <div className="Modal">
         <img src={largeImage} alt={altTags} />
       </div>

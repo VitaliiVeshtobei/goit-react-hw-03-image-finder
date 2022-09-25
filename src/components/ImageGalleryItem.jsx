@@ -7,29 +7,39 @@ export class ImageGalleryItem extends Component {
   openModal = () => {
     this.setState({ isModalOpen: true });
   };
-  closeModal = () => {
+  closeModal = evt => {
     this.setState({ isModalOpen: false });
+
+    console.log(evt);
   };
+  // handleKeyPress = event => {
+  //   // if (event.key === 'Enter') {
+  //   //   console.log('enter press here! ');
+  //   // }
+  //   window.addEventListener('keypress', e => {
+  //     console.log(e.key);
+  //   });
+  //   console.log(event);
+  // };
   render() {
     const { data } = this.props;
-    return data.map(picture => {
-      return (
-        <li className="ImageGalleryItem" key={picture.id}>
-          <img
-            onClick={this.openModal}
-            className="ImageGalleryItem-image"
-            src={picture.webformatURL}
-            alt=""
+
+    return (
+      <li className="ImageGalleryItem">
+        <img
+          onClick={this.openModal}
+          className="ImageGalleryItem-image"
+          src={data.webformatURL}
+          alt=""
+        />
+        {this.state.isModalOpen && (
+          <Modal
+            largeImage={data.largeImageURL}
+            altTags={data.tags}
+            closeModal={this.closeModal}
           />
-          {this.state.isModalOpen && (
-            <Modal
-              largeImage={picture.largeImageURL}
-              altTags={picture.tags}
-              closeModal={this.closeModal}
-            />
-          )}
-        </li>
-      );
-    });
+        )}
+      </li>
+    );
   }
 }
