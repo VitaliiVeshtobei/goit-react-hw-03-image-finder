@@ -1,4 +1,5 @@
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 export const getApi = async (nextStatePage, nextName) => {
   const BASE_URL = 'https://pixabay.com/api/';
@@ -15,4 +16,9 @@ export const getApi = async (nextStatePage, nextName) => {
   const resolve = await axios(BASE_URL, { params });
 
   return resolve.data;
+};
+
+getApi.propTypes = {
+  nextStatePage: PropTypes.number,
+  nextName: PropTypes.string,
 };

@@ -9,18 +9,8 @@ export class ImageGalleryItem extends Component {
   };
   closeModal = evt => {
     this.setState({ isModalOpen: false });
-
-    console.log(evt);
   };
-  // handleKeyPress = event => {
-  //   // if (event.key === 'Enter') {
-  //   //   console.log('enter press here! ');
-  //   // }
-  //   window.addEventListener('keypress', e => {
-  //     console.log(e.key);
-  //   });
-  //   console.log(event);
-  // };
+
   render() {
     const { data } = this.props;
 
@@ -37,6 +27,7 @@ export class ImageGalleryItem extends Component {
             largeImage={data.largeImageURL}
             altTags={data.tags}
             closeModal={this.closeModal}
+            keydown={this.handleKeyDown}
           />
         )}
       </li>
