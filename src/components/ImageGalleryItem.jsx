@@ -7,8 +7,11 @@ export class ImageGalleryItem extends Component {
   openModal = () => {
     this.setState({ isModalOpen: true });
   };
-  closeModal = evt => {
+  closeModal = () => {
     this.setState({ isModalOpen: false });
+  };
+  keydown = evt => {
+    console.log(evt.key);
   };
 
   render() {
@@ -27,7 +30,7 @@ export class ImageGalleryItem extends Component {
             largeImage={data.largeImageURL}
             altTags={data.tags}
             closeModal={this.closeModal}
-            keydown={this.handleKeyDown}
+            keydown={this.keydown}
           />
         )}
       </li>

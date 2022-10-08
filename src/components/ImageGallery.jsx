@@ -3,7 +3,7 @@ import { Component } from 'react';
 import { toast } from 'react-toastify';
 import { ImageGalleryItem } from './ImageGalleryItem';
 import { LoadMore } from './LoadMore';
-import { getApi } from './serviceApi';
+import { getApi } from '../utils/serviceApi';
 import { Loader } from './Loader';
 
 export class ImageGallery extends Component {

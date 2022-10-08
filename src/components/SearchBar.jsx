@@ -35,9 +35,6 @@ export class SearchBar extends Component {
         <header className="Searchbar">
           <form className="SearchForm" onSubmit={this.handleSubmit}>
             <button type="submit" className="SearchForm-button">
-              {/* <span className="SearchForm-button-label">
-                <FcSearch className="SearchForm-button-label" />
-              </span> */}
               <FcSearch className="SearchForm-button-label" />
             </button>
 
